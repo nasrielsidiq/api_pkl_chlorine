@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class JobVacancy extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'npsn';
-    protected $fillable = ['npsn','name','address','icon'];
 }

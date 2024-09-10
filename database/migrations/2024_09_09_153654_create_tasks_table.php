@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schools', function (Blueprint $table) {
-            $table->string("npsn",10)->primary();
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->string('nisn', 12);
             $table->string('name');
-            $table->text('address');
-            $table->string('icon');
-            $table->string('headmaster');
+            $table->string('description');
+            $table->boolean('is_done');
             $table->timestamps();
+            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schools');
+        Schema::dropIfExists('tasks');
     }
 };

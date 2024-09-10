@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schools', function (Blueprint $table) {
-            $table->string("npsn",10)->primary();
+        Schema::create('job_vacancies', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->text('address');
-            $table->string('icon');
-            $table->string('headmaster');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schools');
+        Schema::dropIfExists('job_vacancies');
     }
 };

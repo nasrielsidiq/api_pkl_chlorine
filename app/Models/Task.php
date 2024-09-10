@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Task extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'npsn';
-    protected $fillable = ['npsn','name','address','icon'];
+    protected $fillable = [
+        'nisn',
+        'name',
+        'descrition',
+        'is_done'
+    ];
 }
