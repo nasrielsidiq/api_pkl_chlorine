@@ -19,9 +19,10 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $primaryKey = 'nisn';
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'nisn',
     ];
 
     /**
