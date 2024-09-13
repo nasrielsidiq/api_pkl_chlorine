@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn', 12);
+            $table->unsignedBigInteger('student_id');
             $table->string('name');
             $table->string('description');
             $table->boolean('is_done');
             $table->timestamps();
-            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('student_id')->references('id')->on('students')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

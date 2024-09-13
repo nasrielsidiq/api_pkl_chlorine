@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn',12);
+            $table->unsignedBigInteger('user_id');
+            $table->string('nisn',12)->unique();
             $table->string('full_name');
             // $table->string('nisn', 12);
             $table->date('birth_day',);
             $table->text('adress');
             $table->string('npsn',10);
             $table->timestamps();
-            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('npsn')->references('npsn')->on('schools')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }

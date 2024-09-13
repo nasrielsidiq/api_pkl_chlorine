@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('vacancy_recommendations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('job_id');
-            $table->string('nisn');
+            $table->unsignedBigInteger('student_id');
             $table->timestamps();
             $table->foreign('job_id')->references('id')->on('job_vacancies')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('student_id')->references('id')->on('students')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

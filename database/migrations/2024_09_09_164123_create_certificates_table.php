@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn');
+            $table->unsignedBigInteger('student_id');
             $table->string('npsn');
             $table->string('name');
             $table->string('course');
             $table->date('date');
             $table->timestamps();
-            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('student_id')->references('id')->on('students')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('npsn')->references('npsn')->on('schools')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
