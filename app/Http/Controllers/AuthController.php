@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -31,14 +32,14 @@ class AuthController extends Controller
         //Auth
         //Auth api login dengan email password
         $credentials = $request->only('email', 'password');
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Email, NISN, username or password incorrect'
             ],401);
         }
 
         //Return hasil login
-        $user = Auth::guard('api')->user();
+        $user = JWTAuth::user();
         return response()->json([
             'message' => 'Login success',
             'token' => $token,
@@ -75,7 +76,7 @@ class AuthController extends Controller
         //Auth
         //Auth api login dengan email password
         $credentials = $request->only('email', 'password');
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Email, NISN, username or password incorrect'
             ],401);

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn',12);
+            $table->unsignedBigInteger('student_id');
             $table->text('description')->nullable();
             $table->enum('status', ['present','absent','leave']);
             $table->string('face_image');
             $table->text('location');
             $table->timestamps();
-            $table->foreign('nisn')->references('nisn')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('student_id')->references('id')->on('students')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
