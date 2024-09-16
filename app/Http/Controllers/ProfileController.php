@@ -17,14 +17,15 @@ class ProfileController extends Controller
 {
     public function createProfile(Request $request){
         // Check if the user is authenticated
-        // if (!Auth::guard('api')->check()) {
-        //     return response()->json([
-        //         'message' => 'User is not authenticated',
-        //     ], 401);
-        // }
+        if (!Auth::guard('api')->check()) {
+            return response()->json([
+                'message' => 'User is not authenticated',
+            ], 401);
+        }
 
         // Create profile validator
         $validator = Validator::make($request->all(), [
+            'nisn' => 'required',
             'full_name' => 'required',
             'birth_day' => 'required',
             'adress' => 'required',
@@ -32,16 +33,19 @@ class ProfileController extends Controller
         ]);
 
         // Return if create profile fails
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'message' => 'Invalid field',
-        //         'errors' => $validator->errors(),
-        //     ], 422);
-        // }
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Invalid field',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
+        $user = Auth::guard('api')->user();
         // Create profile
         $student = new Student();
+        $student->nisn = $request->nisn;
         $student->full_name = $request->full_name;
+        $student->user_id = $user->id;
         $student->birth_day = $request->birth_day;
         $student->adress = $request->adress;
         $student->npsn = $request->npsn;
@@ -49,7 +53,7 @@ class ProfileController extends Controller
         // Get the authenticated user's nisn
         // $user = JWTAuth::user();
 
-        $user = Auth::guard('api')->user();
+        $user = JWTAuth::user();
 
         // if ($user && $user->nisn) {
         //     $student->nisn = $user->nisn;
@@ -65,7 +69,7 @@ class ProfileController extends Controller
         return response()->json([
             'message' => 'Create Profile success',
             'student' => $student,
-            'user' => $user
+            // 'user' => $user
         ], 200);
     }
 
