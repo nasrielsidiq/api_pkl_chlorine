@@ -49,17 +49,7 @@ class ProfileController extends Controller
         // Get the authenticated user's nisn
         // $user = JWTAuth::user();
 
-        try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
+        $user = Auth::guard('api')->user();
 
         // if ($user && $user->nisn) {
         //     $student->nisn = $user->nisn;
