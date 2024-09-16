@@ -11,7 +11,12 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 // })->middleware('auth:sanctum');
 
 Route::post('/auth/login', [AuthController::class, 'login']);
+
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/profile/create',[ProfileController::class, 'createProfile']);
 Route::post('/profile/update/{id}',[ProfileController::class, 'updateProfile']);
 Route::post('/password/change/{id}',[ProfileController::class, 'changePassword']);
+
+Route::post('/auth/register/admin', [AuthController::class, 'registerAdmin']);
+Route::post('/auth/register/admin', [AuthController::class, '']);
+
