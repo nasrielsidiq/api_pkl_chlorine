@@ -53,7 +53,7 @@ class ProfileController extends Controller
         // Get the authenticated user's nisn
         // $user = JWTAuth::user();
 
-      
+        $user = JWTAuth::user();
 
         // if ($user && $user->nisn) {
         //     $student->nisn = $user->nisn;

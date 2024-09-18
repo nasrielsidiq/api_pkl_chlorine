@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'muca',
             'is_admin' => 0,
             'email' => 'muca@admin.com',
+            'is_admin'=> true,
             'password' => bcrypt('1234')
         ]);
     }

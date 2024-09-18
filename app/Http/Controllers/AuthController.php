@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+// use Tymon\JWTAuth\Facades\JWTAuth;
+
 class AuthController extends Controller
 {
     public function login(Request $request){
@@ -32,6 +34,7 @@ class AuthController extends Controller
         //Auth
         //Auth api login dengan email password
         $credentials = $request->only('email', 'password');
+
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Email, NISN, username or password incorrect'
@@ -42,6 +45,7 @@ class AuthController extends Controller
         $user = JWTAuth::user();
         return response()->json([
             'message' => 'Login success',
+            // $credentials,
             'token' => $token,
             'user' => $user,
         ], 200);
@@ -76,7 +80,7 @@ class AuthController extends Controller
         //Auth
         //Auth api login dengan email password
         $credentials = $request->only('email', 'password');
-        if (!$token = JWTAuth::attempt($credentials)) {
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json([
                 'message' => 'Email, NISN, username or password incorrect'
             ],401);
