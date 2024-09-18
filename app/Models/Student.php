@@ -9,11 +9,16 @@ class Student extends Model
 {
     use HasFactory;
 
+    public function school(){
+        $this->belongsTo(School::class,'npsn');
+    }
+
     protected $fillable = [
         'nisn',
         'full_name',
         'birth_day',
         'adress',
+        'major',
         'npsn',
     ];
 }

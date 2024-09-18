@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,13 +16,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProfileController extends Controller
 {
-    public function createProfile(Request $request, $user_id){
-        // Check if the user is authenticated
-        // if (!Auth::guard('api')->check()) {
-        //     return response()->json([
-        //         'message' => 'User is not authenticated',
-        //     ], 401);
-        // }
+    public function createProfile(Request $request){
 
         // Create profile validator
         $validator = Validator::make($request->all(), [
@@ -40,30 +35,25 @@ class ProfileController extends Controller
             ], 422);
         }
 
-        $user = User::find($user_id);
+        $user = Auth::guard('api')->user();
+        $school = School::where('npsn', $request->npsn)->first();
         // Create profile
-        // Get the authenticated user's nisn
+        $student = new Student();
+        $student->nisn = $request->nisn;
+        $student->full_name = $request->full_name;
+        $student->user_id = $user->id;
+        $student->birth_day = $request->birth_day;
+        $student->adress = $request->adress;
+        $student->major = $request->major;
+        $student->npsn = $school->npsn;
+        $student->save();
 
-        $student = Student::updateOrInsert(
-            ["user_id" => $user->id],
-            [
-                "user_id" => $user->id,
-                "nisn" => $request->nisn,
-                "full_name" => $request->full_name,
-                "birth_day" => $request->birth_day,
-                "address" => $request->address,
-
-            ]
-        )
-
-        // $user = JWTAuth::user();
-
-
+        $user = Auth::guard('api')->user();
         // Return create profile success
         return response()->json([
             'message' => 'Create Profile success',
-            // 'student' => $student,
-            // 'user' => $user
+            'student' => $student,
+            'user' => $user
         ], 200);
     }
 
@@ -87,11 +77,14 @@ class ProfileController extends Controller
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
+        $school = School::where('npsn', $request->npsn)->first();
 
-        $student->full_name = $request->input('full_name');
-        $student->birth_day = $request->input('birth_day');
-        $student->adress = $request->input('adress');
-        $student->npsn = $request->input('npsn');
+        $student->nisn = $request->nisn;
+        $student->full_name = $request->full_name;
+        $student->birth_day = $request->birth_day;
+        $student->adress = $request->adress;
+        $student->major = $request->major;
+        $student->npsn = $school->npsn;
         $student->save();
 
         return response()->json([
@@ -119,13 +112,14 @@ class ProfileController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
 
         return response()->json([
-            'message' => 'Profile updated successfully',
-            'student' => $user,
+            'message' => 'Update password successfully',
+            'user' => $user,
         ], 200);
     }
 }
