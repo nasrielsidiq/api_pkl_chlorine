@@ -15,13 +15,13 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProfileController extends Controller
 {
-    public function createProfile(Request $request){
+    public function createProfile(Request $request, $user_id){
         // Check if the user is authenticated
-        if (!Auth::guard('api')->check()) {
-            return response()->json([
-                'message' => 'User is not authenticated',
-            ], 401);
-        }
+        // if (!Auth::guard('api')->check()) {
+        //     return response()->json([
+        //         'message' => 'User is not authenticated',
+        //     ], 401);
+        // }
 
         // Create profile validator
         $validator = Validator::make($request->all(), [
@@ -40,35 +40,29 @@ class ProfileController extends Controller
             ], 422);
         }
 
-        $user = Auth::guard('api')->user();
+        $user = User::find($user_id);
         // Create profile
-        $student = new Student();
-        $student->nisn = $request->nisn;
-        $student->full_name = $request->full_name;
-        $student->user_id = $user->id;
-        $student->birth_day = $request->birth_day;
-        $student->adress = $request->adress;
-        $student->npsn = $request->npsn;
-
         // Get the authenticated user's nisn
+
+        $student = Student::updateOrInsert(
+            ["user_id" => $user->id],
+            [
+                "user_id" => $user->id,
+                "nisn" => $request->nisn,
+                "full_name" => $request->full_name,
+                "birth_day" => $request->birth_day,
+                "address" => $request->address,
+
+            ]
+        )
+
         // $user = JWTAuth::user();
 
-        $user = JWTAuth::user();
-
-        // if ($user && $user->nisn) {
-        //     $student->nisn = $user->nisn;
-        // } else {
-        //     return response()->json([
-        //         'message' => 'User does not have a nisn',
-        //     ], 422);
-        // }
-
-        // $student->save();
 
         // Return create profile success
         return response()->json([
             'message' => 'Create Profile success',
-            'student' => $student,
+            // 'student' => $student,
             // 'user' => $user
         ], 200);
     }

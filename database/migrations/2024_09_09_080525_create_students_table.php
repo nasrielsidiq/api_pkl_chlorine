@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('full_name');
             // $table->string('nisn', 12);
             $table->date('birth_day',);
-            $table->text('adress');
-            //revisi ke bahasa inggris  
+            $table->text('address');
+            //revisi ke bahasa inggris
             $table->text('jurusan');
             $table->string('npsn',10);
             $table->timestamps();

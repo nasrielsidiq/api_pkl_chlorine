@@ -13,8 +13,8 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/profile/create',[ProfileController::class, 'createProfile']);
-Route::post('/profile/update/{id}',[ProfileController::class, 'updateProfile']);
+Route::post('/profile/create/{id}',[ProfileController::class, 'createProfile']);
+// Route::post('/profile/update/{id}',[ProfileController::class, 'updateProfile']);
 Route::post('/password/change/{id}',[ProfileController::class, 'changePassword']);
 
 Route::post('/auth/register/admin', [AuthController::class, 'registerAdmin']);
