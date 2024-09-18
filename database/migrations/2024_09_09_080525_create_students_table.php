@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('full_name');
             // $table->string('nisn', 12);
             $table->date('birth_day',);
-            $table->text('adress');
+            $table->text('address');
             //revisi ke bahasa inggris
-            $table->text('jurusan');
+            $table->text('major');
             $table->string('npsn',10);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
