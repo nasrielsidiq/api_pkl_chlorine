@@ -9,5 +9,10 @@ class School extends Model
 {
     use HasFactory;
     protected $primaryKey = 'npsn';
-    protected $fillable = ['npsn','name','address','icon'];
+
+    protected $fillable = ['npsn','name','address','icon','headmaster'];
+
+    public function School(){
+        $this->hasMany(Student::class,'npsn');
+    }
 }

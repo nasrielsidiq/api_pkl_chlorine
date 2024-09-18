@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('birth_day',);
             $table->text('adress');
             //revisi ke bahasa inggris  
-            $table->text('jurusan');
+            $table->text('major');
             $table->string('npsn',10);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
