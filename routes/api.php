@@ -23,6 +23,7 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/profile/update/{id}',[ProfileController::class, 'createProfile']);
 Route::post('/password/change/{id}',[AuthController::class, 'changePassword']);
 
+Route::get('/users', [UserController::class, 'getAll']);
 Route::post('/school/add', [SchoolController::class, 'addSchool']);
 Route::post('/auth/register/admin', [AuthController::class, 'registerAdmin']);
 Route::post('/user/create', [UserController::class, 'createUser']);
