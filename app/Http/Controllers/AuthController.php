@@ -138,4 +138,34 @@ class AuthController extends Controller
             'user' => $user,
         ], 200);
     }
+    public function changePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Invalid field',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = user::find($request->id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Update password successfully',
+            'user' => $user,
+        ], 200);
+    }
 }

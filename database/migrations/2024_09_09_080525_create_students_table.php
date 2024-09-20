@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nisn',12)->unique();
+            $table->string('profile_image')->default('default_image.png');
             $table->string('full_name');
             // $table->string('nisn', 12);
             $table->date('birth_day',);
             $table->text('address');
             //revisi ke bahasa inggris
-            $table->text('major');
+            $table->string('major');
             $table->string('npsn',10);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();

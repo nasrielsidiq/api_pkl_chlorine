@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     public function school(){
-        $this->belongsTo(School::class,'npsn');
+        $this->belongsTo(School::class,'npsn','npsn');
     }
 
     protected $fillable = [

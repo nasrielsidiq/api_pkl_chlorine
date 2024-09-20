@@ -32,7 +32,7 @@ class jobVacancyController extends Controller
             'message' => 'create job successfuly',
             'job' => $job,
         ]);
-        
+
     }
 
     public function vacancyCreate(Request $request){
@@ -48,12 +48,23 @@ class jobVacancyController extends Controller
             ]);
         }
 
-        $job = JobVacancy::Where('name', $request->name)->first();
-        $student = Student::Where('id', $request->id)->first();
+        $job = JobVacancy::Where('id', $request->job_id)->first();
+        $student = Student::Where('id', $request->student_id)->first();
+
+        if (!$job) {
+            return response()->json([
+                'message' => 'Job not found',
+            ],404);
+        }
+        if (!$student) {
+            return response()->json([
+                'message' => 'Student not found',
+            ],404);
+        }
 
         $vacancy = new VacancyRecommendation();
         $vacancy->job_id = $job->id;
-        $vacancy->job_id = $student->id;
+        $vacancy->student_id = $student->id;
 
         return response()->json([
             'message' => 'create vacancy recommendation successfuly',
